@@ -8,6 +8,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 282138733683506029, guid: 6eb351a2a2c341c4089aefc8500e81c5, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 282138733683506029, guid: 6eb351a2a2c341c4089aefc8500e81c5, type: 3}
+      propertyPath: m_Color.g
+      value: 0.9622972
+      objectReference: {fileID: 0}
+    - target: {fileID: 282138733683506029, guid: 6eb351a2a2c341c4089aefc8500e81c5, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 673347739452794901, guid: 6eb351a2a2c341c4089aefc8500e81c5, type: 3}
       propertyPath: m_Name
       value: CollectibleGold
@@ -63,6 +75,10 @@ PrefabInstance:
     - target: {fileID: 3600876009083336291, guid: 6eb351a2a2c341c4089aefc8500e81c5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868457986549470653, guid: 6eb351a2a2c341c4089aefc8500e81c5, type: 3}
+      propertyPath: scoreValue
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6153995356962959080, guid: 6eb351a2a2c341c4089aefc8500e81c5, type: 3}
       propertyPath: m_LocalScale.x

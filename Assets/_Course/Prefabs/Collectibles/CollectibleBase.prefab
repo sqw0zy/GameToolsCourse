@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3075257591564387123}
   - component: {fileID: 282138733683506029}
   - component: {fileID: 600784255281071503}
+  - component: {fileID: 4868457986549470653}
   m_Layer: 0
   m_Name: CollectibleBase
   m_TagString: Untagged
@@ -109,7 +110,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -122,10 +123,10 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 673347739452794901}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 12
   m_Type: 2
-  m_Color: {r: 0.9622642, g: 0.94451755, b: 0.5719117, a: 1}
+  m_Color: {r: 0.4339623, g: 0.10812935, b: 0.014328952, a: 1}
   m_Intensity: 1
   m_Range: 1
   m_SpotAngle: 30
@@ -209,6 +210,19 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!114 &4868457986549470653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673347739452794901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75e6654a1a99de34dbf99afa18a09e92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollectibleItem
+  scoreValue: 1
 --- !u!1 &5007053677641313361
 GameObject:
   m_ObjectHideFlags: 0
