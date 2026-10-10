@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 282138733683506029}
   - component: {fileID: 600784255281071503}
   - component: {fileID: 4868457986549470653}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CollectibleBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,7 +235,7 @@ GameObject:
   - component: {fileID: 2446761881820981692}
   - component: {fileID: 2449822333814613975}
   - component: {fileID: 6125302338922728211}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: VisualMarker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
