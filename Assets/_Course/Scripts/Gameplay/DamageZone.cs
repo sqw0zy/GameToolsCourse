@@ -20,6 +20,7 @@ public class DamageZone : MonoBehaviour
         if (!other.TryGetComponent(out PlayerState playerState)) return;
 
         playerState.TakeDamage(damage);
+        GameSession.instance.ApplyDamage(damage);
         //other.GetComponent<PlayerState>().TakeDamage(damage);
         nextDamageTime = Time.time + cooldown; 
     }
