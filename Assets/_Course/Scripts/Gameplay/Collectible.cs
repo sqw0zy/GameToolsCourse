@@ -5,7 +5,13 @@ using UnityEngine;
 public class Collectible : MonoBehaviour
 {
     [SerializeField, Min(1)] private int value = 1;
+    private AudioSource AudioSource;
     private bool collected;
+
+    private void Start()
+    {
+        AudioSource = GetComponent<AudioSource>();
+    }
 
     private void Reset()
     {
@@ -18,7 +24,15 @@ public class Collectible : MonoBehaviour
 
         collected = true;
         GameSession.instance.AddScore(1);
+
+        AudioSource.Play();
+
+        GetComponent<Collider>().enabled= false;
+        MeshRenderer mesh = GetComponentInChildren<MeshRenderer>();
+        mesh.enabled = false;
+
         Debug.Log($"Collected {name}; value = {value}", this);
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
+        Destroy(gameObject, 2f);
     }
 }
