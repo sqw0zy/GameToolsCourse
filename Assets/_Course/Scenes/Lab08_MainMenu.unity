@@ -424,7 +424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5fa67f3bccfdd747a23f1b726d89d3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneNavigation
-  gameplayScnee: Lab09_AssetPipeline
+  gameplayScnee: Lab10_AnimationNavigation
   mainMenuScene: Lab08_MainMenu
 --- !u!4 &509505944
 Transform:
