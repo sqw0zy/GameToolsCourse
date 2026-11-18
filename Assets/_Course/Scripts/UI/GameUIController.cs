@@ -17,6 +17,7 @@ public class GameUIController : MonoBehaviour
     [SerializeField] private Slider healthSlider;
 
     [Header("Panels")]
+    [SerializeField] private GameObject HUDPanel;
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject endPanel;
     [SerializeField] private TMP_Text resultTitle;
@@ -24,6 +25,10 @@ public class GameUIController : MonoBehaviour
     [SerializeField] private GameObject resumeButton;
     [SerializeField] private GameObject restartButton;
 
+
+    [Header("Debug")]
+    [SerializeField] private TMP_Text difficulty;
+    [SerializeField] private TMP_Text amountToWin;
     private bool paused;
     private Coroutine mapSwitchCoroutine;
 
@@ -37,6 +42,7 @@ public class GameUIController : MonoBehaviour
 
     private void Start()
     {
+        HUDPanel.SetActive(true);
         pausePanel.SetActive(false);
         endPanel.SetActive(false);
         Time.timeScale = 1.0f;
@@ -44,6 +50,9 @@ public class GameUIController : MonoBehaviour
         if (playerInput != null) playerInput.SwitchCurrentActionMap("Gameplay");
 
         session.PublishState();
+
+        difficulty.text = "Сложность: " + session.Profile.DisplayName;
+        amountToWin.text = "Нужно собрать: " + session.Profile.RequiredScore;
     }
 
     private void OnDisable()

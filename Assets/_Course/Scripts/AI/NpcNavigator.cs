@@ -10,17 +10,8 @@ public class NpcNavigator : MonoBehaviour
     [SerializeField] private Transform player;
     [SerializeField] private Transform[] patrolPoints;
 
-    [Header("Movement")]
-    [SerializeField, Min(0.1f)] private float patrolSpeed = 2f;
-    [SerializeField, Min(0.1f)] private float chaseSpeed = 4f;
-    [SerializeField, Min(0f)] private float arrivalTolerance = .25f;
-
-    [Header("Perception")]
-    [SerializeField, Min(0.1f)] private float detectionDistance = 6f;
-    [SerializeField, Min(.1f)] private float loseDistance = 10f;
-
-    [Header("Animation")]
-    [SerializeField, Min(0f)] private float animationDamp = .12f;
+    [Header("Configuration")]
+    [SerializeField] private NpcConfig config;
 
     private static readonly int SpeedHash = Animator.StringToHash("Speed");
     private static readonly int ChaseHash = Animator.StringToHash("IsChasing");
@@ -40,14 +31,21 @@ public class NpcNavigator : MonoBehaviour
 
     private void Start()
     {
+        if (config == null)
+        {
+            Debug.LogError("NpcConfig is not assigned.", this);
+            enabled = false;
+            return;
+        }
 
+        EnterPatrol();
     }
 
     private void Update()
     {
         if (!agent.isOnNavMesh || player == null)
         {
-            animator.SetFloat(SpeedHash, 0f, animationDamp, Time.deltaTime);
+            animator.SetFloat(SpeedHash, 0f, config.AnimationDamp, Time.deltaTime);
             animator.SetBool(ChaseHash, false);
             return;
         }
@@ -57,26 +55,26 @@ public class NpcNavigator : MonoBehaviour
         switch(state)
         {
             case State.Patrol:
-                if (distanceToPlayer <= detectionDistance)
+                if (distanceToPlayer <= config.DetectionDistance)
                     EnterChase();
                 else if (HasArrived())
                     MoveToNextPoint();
                 break;
             case State.Chase:
                 agent.SetDestination(player.position);
-                if (distanceToPlayer >= loseDistance)
+                if (distanceToPlayer >= config.LoseDistance)
                     EnterReturn();
                 break;
             case State.Return:
-                if (distanceToPlayer <= detectionDistance)
+                if (distanceToPlayer <= config.DetectionDistance)
                     EnterChase();
                 else if (HasArrived())
                     EnterPatrol();
                 break;
         }
 
-        float normalizedSpeed = Mathf.Clamp01(agent.velocity.magnitude / chaseSpeed);
-        animator.SetFloat(SpeedHash, normalizedSpeed, animationDamp, Time.deltaTime);
+        float normalizedSpeed = Mathf.Clamp01(agent.velocity.magnitude / config.ChaseSpeed);
+        animator.SetFloat(SpeedHash, normalizedSpeed, config.AnimationDamp, Time.deltaTime);
         animator.SetBool(ChaseHash, state == State.Chase);
     }
 
@@ -85,13 +83,13 @@ public class NpcNavigator : MonoBehaviour
         if (agent.pathPending || agent.pathStatus != NavMeshPathStatus.PathComplete) 
             return false;
 
-        return agent.remainingDistance <= agent.stoppingDistance + arrivalTolerance;
+        return agent.remainingDistance <= agent.stoppingDistance + config.ArrivalTolerance;
     }
 
     private void EnterPatrol()
     {
         state = State.Patrol;
-        agent.speed = patrolSpeed;
+        agent.speed = config.PatrolSpeed;
         if (patrolPoints.Length > 0)
         {
             agent.SetDestination(patrolPoints[patrolIndex].position);
@@ -109,22 +107,27 @@ public class NpcNavigator : MonoBehaviour
     private void EnterChase()
     {
         state = State.Chase;
-        agent.speed = chaseSpeed;
+        agent.speed = config.ChaseSpeed;
         agent.SetDestination(player.position);
     }
 
     private void EnterReturn()
     {
         state = State.Return;
-        agent.speed = patrolSpeed;
+        agent.speed = config.PatrolSpeed;
         agent.SetDestination(homePosition);
     }
 
     private void OnDrawGizmosSelected()
     {
+        if (config == null)
+        {
+            Debug.LogError("config is not selected.", this);
+            return;
+        }
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, detectionDistance);
+        Gizmos.DrawWireSphere(transform.position, config.DetectionDistance);
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, loseDistance);
+        Gizmos.DrawWireSphere(transform.position, config.LoseDistance);
     }
 }

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4acab1f7114c08441869542a162b1852, type: 3}
+  m_Name: ITM_Coin
+  m_EditorClassIdentifier: Assembly-CSharp::ItemDefinition
+  id: coin
+  displayName: coin
+  icon: {fileID: 21300000, guid: ab9e4ad14363ae04c8a671afa410ef8c, type: 3}
+  pickupSound: {fileID: 8300000, guid: d7e92768afdbf6a4b8bce1509a4b65b4, type: 3}
+  scoreValue: 1

@@ -3,11 +3,10 @@ using UnityEngine;
 
 public class GameSession : MonoBehaviour
 {
-    [SerializeField, Min(1)] private int maxHealth = 100;
-    [SerializeField, Min(1f)] private float levelDuration = 90f;
-    [SerializeField, Min(1)] private int requiredScore = 5;
+    [SerializeField] private DifficultyProfile profile;
 
     public static GameSession instance;
+    public DifficultyProfile Profile => profile;
 
     public event Action<int> ScoreChanged;
     public event Action<int, int> HealthChanged;
@@ -21,9 +20,16 @@ public class GameSession : MonoBehaviour
 
     private void Awake()
     {
+        if (profile is null)
+        {
+            Debug.LogError("DifficultyProfile is not assigned.", this);
+            enabled = false;
+            return;
+        }
+        Score = 0;
         instance = this;
-        Health = maxHealth;
-        RemainingTime = levelDuration;
+        Health = profile.PlayerMaxHealth;
+        RemainingTime = profile.LevelDuration;
     }
 
     private void Start()
@@ -43,21 +49,21 @@ public class GameSession : MonoBehaviour
         if (IsFinished || amount <= 0) return;
         Score += amount;
         ScoreChanged?.Invoke(Score);
-        if (Score >= requiredScore) Finish(true);
+        if (Score >= profile.RequiredScore) Finish(true);
     }
 
     public void ApplyDamage(int amount)
     {
         if (IsFinished || amount <= 0) return;
         Health = Mathf.Max(0, Health - amount);
-        HealthChanged?.Invoke(Health, maxHealth);
+        HealthChanged?.Invoke(Health, profile.PlayerMaxHealth);
         if (Health <= 0) Finish(false);
     }
 
     public void PublishState()
     {
         ScoreChanged?.Invoke(Score);
-        HealthChanged?.Invoke(Health, maxHealth);
+        HealthChanged?.Invoke(Health, profile.PlayerMaxHealth);
         TimeChanged?.Invoke(RemainingTime);
     }
     
