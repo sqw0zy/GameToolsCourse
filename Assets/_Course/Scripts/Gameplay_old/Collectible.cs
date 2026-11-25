@@ -5,12 +5,17 @@ using UnityEngine;
 public class Collectible : MonoBehaviour
 {
     [SerializeField, Min(1)] private int value = 1;
+    [SerializeField] private GameSession session;
     private AudioSource AudioSource;
     private bool collected;
 
     private void Start()
     {
         AudioSource = GetComponent<AudioSource>();
+        if (session == null)
+        {
+            session = FindFirstObjectByType<GameSession>();
+        }
     }
 
     private void Reset()
@@ -23,7 +28,7 @@ public class Collectible : MonoBehaviour
         if (collected || !other.CompareTag("Player")) return;
 
         collected = true;
-        GameSession.instance.AddScore(1);
+        //GameSession.instance.AddScore(1);
 
         AudioSource.Play();
 

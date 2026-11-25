@@ -1,0 +1,5 @@
+{
+    "name": "Course.PlayModeTests",
+    "references": ["Course.Gameplay"],
+    "optionalUnityReferences": ["TestAssemblies"]
+}

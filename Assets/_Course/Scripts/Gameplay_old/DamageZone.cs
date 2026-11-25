@@ -6,8 +6,17 @@ public class DamageZone : MonoBehaviour
 {
     [SerializeField, Min(1)] private int damage = 10;
     [SerializeField, Min(.1f)] private float cooldown = 1f;
+    [SerializeField] private GameSession session;
 
     private float nextDamageTime;
+
+    private void Start()
+    {
+        if (session == null)
+        {
+            session = FindFirstObjectByType<GameSession>();
+        }
+    }
 
     private void Reset()
     {
@@ -20,15 +29,12 @@ public class DamageZone : MonoBehaviour
         if (!other.TryGetComponent(out PlayerState playerState)) return;
 
         playerState.TakeDamage(damage);
-        GameSession.instance.ApplyDamage(damage);
+        session.ApplyDamage(damage);
+
         //other.GetComponent<PlayerState>().TakeDamage(damage);
         nextDamageTime = Time.time + cooldown; 
     }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    
 
     // Update is called once per frame
     void Update()

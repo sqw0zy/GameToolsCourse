@@ -1,0 +1,6 @@
+{
+    "name": "Course.EditModeTests",
+    "references": ["Course.Gameplay"],
+    "includePlatforms": ["Editor"],
+    "optionalUnityReferences": ["TestAssemblies"]
+}

@@ -4,8 +4,7 @@ using UnityEngine;
 public class ConfigurablePickup : MonoBehaviour
 {
     [SerializeField] private ItemDefinition definition;
-
-    private GameSession session;
+    [SerializeField] private GameSession session;
     private AudioSource audioSource;
     private bool collected;
 
@@ -19,7 +18,10 @@ public class ConfigurablePickup : MonoBehaviour
     }
     private void Start()
     {
-        session = GameSession.instance;
+        if (session == null)
+        {
+            session = FindFirstObjectByType<GameSession>();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -40,5 +42,13 @@ public class ConfigurablePickup : MonoBehaviour
         mesh.enabled = false;
 
         Destroy(gameObject, 2f);
+    }
+
+    public void Configure(
+        ItemDefinition itemDefinition,
+        GameSession gameSession)
+    {
+        definition = itemDefinition;
+        session = gameSession; 
     }
 }
